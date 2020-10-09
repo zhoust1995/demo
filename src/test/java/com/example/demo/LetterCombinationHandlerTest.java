@@ -19,7 +19,7 @@ public class LetterCombinationHandlerTest {
 
     @Test
     public void testLetterCombination(){
-        List<String> results = letterCombinationHandler.execute("234");
+        List<String> results = letterCombinationHandler.execute("23");
         StringBuilder stringBuilder = new StringBuilder();
         for (String result : results) {
             stringBuilder.append(result + " ");

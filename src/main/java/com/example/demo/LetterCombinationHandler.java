@@ -40,16 +40,17 @@ public class LetterCombinationHandler implements Handler {
     @Override
     public List<String> execute(String inputs) {
         List<String> result = new ArrayList<>();
-        if (inputs == null || inputs.isEmpty()) {
+        if (inputs == null || inputs.isEmpty() || "0".equals(inputs) || "1".equals(inputs)) {
             return result;
         }
-
+        String replaceZeroInput = inputs.replaceAll("0", "");
+        String replaceZeroAndOneInput = replaceZeroInput.replaceAll("1", "");
         List<Button> buttons = initButtons();
         Map<Character, String> buttonMap = buttons.stream()
                 .collect(Collectors.toMap(x -> x.getNumber(), x -> x.getLetters()));
         StringBuilder stringBuilder = new StringBuilder();
-        letterCombination(inputs, 0, buttonMap, result, stringBuilder);
-        String firstString = buttonMap.get(inputs.charAt(0));
+        letterCombination(replaceZeroAndOneInput, 0, buttonMap, result, stringBuilder);
+        String firstString = buttonMap.get(replaceZeroAndOneInput.charAt(0));
         //过滤出第一个按键开始的组合
         return result.stream()
                 .filter(x -> firstString.contains(String.valueOf(x.charAt(0))))
@@ -61,7 +62,7 @@ public class LetterCombinationHandler implements Handler {
                                    Map<Character, String> buttonsMap,
                                    List<String> result,
                                    StringBuilder stringBuilder) {
-        if (stringBuilder.length() == inputs.length()) {
+        if (stringBuilder.length() == inputs.length() && !result.contains(stringBuilder.toString())) {
             result.add(stringBuilder.toString());
             return;
         }
